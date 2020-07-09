@@ -18,8 +18,12 @@ def compare_hash(hash1, hash2):
         print('The object is not the same or has been modified')
         return False
 
-def get_hash(data):
+def get_hash_sha256(data):
     hash_data = hashlib.sha256(str(data).encode('utf-8')).hexdigest()
+    return hash_data
+
+def get_hash_md5(data):
+    hash_data = hashlib.md5(str(data).encode('utf-8')).hexdigest()
     return hash_data
 
 start = time()
@@ -28,7 +32,7 @@ ans = False
 while ans is False:
     list1 = generate_small_list()
     list2 = generate_small_list()
-    ans = compare_hash(get_hash(list1), get_hash(list2))
+    ans = compare_hash(get_hash_sha256(list1), get_hash_sha256(list2))
     times += 1
     print(str(list1) + str(list2) + str(ans))
 end = time()
