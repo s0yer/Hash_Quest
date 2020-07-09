@@ -29,12 +29,14 @@ def get_hash_md5(data):
 start = time()
 times = 0
 ans = False
+hash_source = get_hash_sha256(generate_small_list())
+
 while ans is False:
-    list1 = generate_small_list()
-    list2 = generate_small_list()
-    ans = compare_hash(get_hash_sha256(list1), get_hash_sha256(list2))
+
+    hash_test = get_hash_sha256(generate_small_list())
+    ans = compare_hash(hash_source, hash_test)
     times += 1
-    print(str(list1) + str(list2) + str(ans))
+    print(str(hash_source) + ' ' + str(hash_test) + ' ' + str(ans))
 end = time()
 elapsed_time = end - start
 
