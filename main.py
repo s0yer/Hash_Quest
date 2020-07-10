@@ -26,20 +26,55 @@ def get_hash_md5(data):
     hash_data = hashlib.md5(str(data).encode('utf-8')).hexdigest()
     return hash_data
 
-start = time()
+def get_hash_blake2s(data):
+    hash_data = hashlib.blake2s(str(data).encode('utf-8')).hexdigest()
+    return hash_data
+
 times = 0
 ans = False
-hash_source = get_hash_sha256(generate_small_list())
 
-while ans is False:
+print('Tip your option :')
+print('1 >> md5')
+print('2 >> sha256')
+print('3 >> blake2s')
 
-    hash_test = get_hash_sha256(generate_small_list())
-    ans = compare_hash(hash_source, hash_test)
-    times += 1
-    print(str(hash_source) + ' ' + str(hash_test) + ' ' + str(ans))
-end = time()
+option = input('>> ')
+
+if option == '1':
+    hash_type = 'md5'
+    hash_source = get_hash_md5(generate_small_list())
+    start = time()
+    while ans is False:
+        hash_test = get_hash_md5(generate_small_list())
+        ans = compare_hash(hash_source, hash_test)
+        times += 1
+        print(str(hash_source) + ' ' + str(hash_test) + ' ' + str(ans))
+    end = time()
+elif option == '2':
+    hash_type = 'sha256'
+    hash_source = get_hash_sha256(generate_small_list())
+    start = time()
+    while ans is False:
+        hash_test = get_hash_sha256(generate_small_list())
+        ans = compare_hash(hash_source, hash_test)
+        times += 1
+        print(str(hash_source) + ' ' + str(hash_test) + ' ' + str(ans))
+    end = time()
+elif option == '3':
+    hash_type = 'blake2s'
+    hash_source = get_hash_blake2s(generate_small_list())
+    start = time()
+    while ans is False:
+        hash_test = get_hash_blake2s(generate_small_list())
+        ans = compare_hash(hash_source, hash_test)
+        times += 1
+        print(str(hash_source) + ' ' + str(hash_test) + ' ' + str(ans))
+    end = time()
+else:
+    print('choose a valid option:')
+
 elapsed_time = end - start
 
-print('Using sha256: ')
+print('Using ' + hash_type + ' :')
 print('Times performed: ' + str(times))
 print('Elapsed time: ' + str(elapsed_time))
