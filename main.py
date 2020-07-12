@@ -3,13 +3,16 @@ from random import randint
 from time import time
 import hashlib
 
+# generate a list of size z
 def generate_small_list():
+    z = 11
     small_random_list = []
-    for elem in range(1, 11):
+    for elem in range(1, z):
         small_random_list.append(randint(1, 3))
 
     return small_random_list
 
+# compara two hashs of the same type
 def compare_hash(hash1, hash2):
     if hash1 == hash2:
         print('Same object or the integrity is ok')
@@ -28,6 +31,10 @@ def get_hash_md5(data):
 
 def get_hash_blake2s(data):
     hash_data = hashlib.blake2s(str(data).encode('utf-8')).hexdigest()
+    return hash_data
+
+def get_hash_shake128(data):
+    hash_data = hashlib.shake_128(str(data).encode('utf-8')).hexdigest()
     return hash_data
 
 times = 0
@@ -78,3 +85,4 @@ elapsed_time = end - start
 print('Using ' + hash_type + ' :')
 print('Times performed: ' + str(times))
 print('Elapsed time: ' + str(elapsed_time))
+print(get_hash_shake128(generate_small_list()))
